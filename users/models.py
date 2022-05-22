@@ -21,3 +21,6 @@ class User(AbstractUser):
     gender = models.CharField(blank=True, max_length=255, choices=GENDER_CHOICES)
     followers = models.ManyToManyField('self')
     following = models.ManyToManyField('self')
+
+    class Meta:
+        db_table = 'Users_user'
