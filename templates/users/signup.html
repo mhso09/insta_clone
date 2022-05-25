@@ -1,0 +1,14 @@
+<header>signip</header>
+
+<form action="{% url 'users:signup' %}" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="fieldwrapper">
+        {{ field.errors }}
+        {{ field.label_tag }} {{ field }}
+    </div>    
+    {% endfor %}
+    <input type="submit" value="Sign up">
+</form>
+
+<a href="{% url 'users:index' %}">login</a>

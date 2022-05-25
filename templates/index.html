@@ -1,1 +1,9 @@
 <h1>hello, world!</h1>
+    <h2><a href="{% url 'users:signup' %}">가입</a></h2>
+
+<form action="{% url 'users:index' %}" method="post">
+    {% csrf_token %}
+    <input type="input" name="username" placeholder="username">
+    <input type="password" name="password" placeholder="password">
+    <input type="submit" value="Login">
+</form>

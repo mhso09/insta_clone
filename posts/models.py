@@ -3,7 +3,7 @@ from users import models as user_model
 # Create your models here.
 class TimeStamedModel(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
