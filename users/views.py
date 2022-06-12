@@ -12,7 +12,7 @@ def signup(request):
     if request.method == 'GET':
         form = SignUpForm()
 
-        return render(request, 'users/signup.html', {'form':form})
+        return render(request, 'users/signup_.html', {'form':form})
 
     elif request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -30,7 +30,7 @@ def signup(request):
                 login(request, user)
                 return HttpResponseRedirect(reverse('posts:index'))
         
-        return render(request, 'index.html')
+        return render(request, 'base.html')
 
 def login_views(request):
     if request.method == 'GET':
