@@ -6,29 +6,21 @@ from .forms import SignUpForm
 
 def index(request):
     if request.method == 'GET':
-        return render(request, 'index.html')
-    
-    elif request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None :
-            login(request, user)
-            return redirect(reverse('posts:index'))
-        else:
-            return render(request, 'index.html')
+        return render(request, 'base.html')
 
 def signup(request):
     if request.method == 'GET':
         form = SignUpForm()
 
         return render(request, 'users/signup.html', {'form':form})
+
     elif request.method == 'POST':
         form = SignUpForm(request.POST)
 
         if form.is_valid():
             form.save()
-
+            
+            # 회원가입 후 자동 로그인
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
 
@@ -39,3 +31,17 @@ def signup(request):
                 return HttpResponseRedirect(reverse('posts:index'))
         
         return render(request, 'index.html')
+
+def login_views(request):
+    if request.method == 'GET':
+        return render(request, 'login.html')
+    
+    elif request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None :
+            login(request, user)
+            return redirect(reverse('posts:index'))
+        else:
+            return render(request, 'login.html')
