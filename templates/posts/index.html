@@ -1,2 +1,11 @@
-<header>hello</header>
-<h1>world</h1>
+{% extends 'index.html' %}
+{% block title %}
+<title>post</title>
+{% endblock %}
+{% block navbar %}
+{% include 'posts/navbar.html' %}
+{% endblock %}
+{% block content %}
+<h1>test</h1>
+{% endblock %}
+

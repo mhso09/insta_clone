@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, reverse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import SignUpForm
 # Create your views here.
 
@@ -45,3 +45,7 @@ def login_views(request):
             return redirect(reverse('posts:index'))
         else:
             return render(request, 'login.html')
+
+def logout_views(request):
+    logout(request)
+    return redirect('users:base')

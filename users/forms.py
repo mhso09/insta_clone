@@ -11,10 +11,10 @@ class SignUpForm(django_forms.ModelForm):
         model = User
         fields = ['email', 'name', 'username' ,'password']
 
-        labels = {
-            'email' : '메일',
-            'name' : '성명'
-        }
+        # labels = {
+        #     'email' : '메일',
+        #     'name' : '성명'
+        # }
         widgets = {
             'password': django_forms.PasswordInput(),
         }

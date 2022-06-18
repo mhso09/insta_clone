@@ -26,11 +26,15 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
     <!-- pybo css -->
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    
+    {% block title %}
     <title>hello</title>
+    {% endblock %}
 </head>
 
 <body>
-
+    {% block navbar %}
+    {% endblock %}
     <!-- 기본 템플릿 안에 삽입될 내용 start -->
     {% block content %}
     {% endblock %}
