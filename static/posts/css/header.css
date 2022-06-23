@@ -1,14 +1,5 @@
-textarea {
-    width: 50%;
-}
-
-.comment {
-    border-top: dotted 1px #ddd;
-    font-size:0.7em;
-}
-
 .header {
-    height: 50%;
+    height: 50px;
     background-color: white;
     border: solid 1px #d2d2d2;
     display: flex;
@@ -23,9 +14,16 @@ textarea {
     justify-content: space-between;
     align-items: center;
 }
+
+/* header - logo img */
+.main-img img{
+    width : 130px;
+    height: 54px;
+}
+
 /* header - serch box */
 input {
-    border:solid 1px #d2d2d2;
+    border: solid 1px #d2d2d2;
     text-align: center;
 }
 
@@ -41,7 +39,7 @@ input [type='text'], textarea {
 }
 
 .header-right div {
-    margin:10px;
+    margin: 10px;
 }
 
 .header-right a {

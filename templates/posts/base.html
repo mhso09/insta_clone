@@ -1,0 +1,21 @@
+{% load static %}
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'posts/css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'posts/css/header.css' %}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>포스트</title>
+</head>
+<body>
+    <div class="header">
+        {% include "posts/header.html" %}
+    </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

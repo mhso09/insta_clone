@@ -6,7 +6,7 @@ from .forms import SignUpForm
 
 def index(request):
     if request.method == 'GET':
-        return render(request, 'base.html')
+        return render(request, 'index.html')
 
 def signup(request):
     if request.method == 'GET':
@@ -30,7 +30,7 @@ def signup(request):
                 login(request, user)
                 return HttpResponseRedirect(reverse('posts:index'))
         
-        return render(request, 'base.html')
+        return render(request, 'index.html')
 
 def login_views(request):
     if request.method == 'GET':
@@ -48,4 +48,4 @@ def login_views(request):
 
 def logout_views(request):
     logout(request)
-    return redirect('users:base')
+    return redirect('users:index')
