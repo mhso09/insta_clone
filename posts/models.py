@@ -19,7 +19,7 @@ class Post(TimeStamedModel):
     caption = models.TextField(blank=True) 
     image_likes = models.ManyToManyField(user_model.User, related_name="post_image_likes")
 
-class comment(TimeStamedModel):
+class Comments(TimeStamedModel):
     author = models.ForeignKey(
             user_model.User,
             null=True,
@@ -33,3 +33,4 @@ class comment(TimeStamedModel):
         related_name="comment_post"
     )
     contents = models.TextField(blank=True)
+
