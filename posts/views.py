@@ -1,6 +1,6 @@
 from tracemalloc import get_object_traceback
 from django.shortcuts import render, get_object_or_404
-from insta.users.models import User as user_model
+from users.models import User as user_model
 from . import models
 # Create your views here.
 
