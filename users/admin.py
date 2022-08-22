@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User
-# Register your models here.
+from django.contrib.auth import admin as auth_admin
+from django.contrib.auth import get_user_model
 
-admin.site.register(User)
+from insta.users.forms import UserForm

@@ -16,8 +16,14 @@ class Post(TimeStamedModel):
             related_name="post_author"
         )
     image = models.ImageField(blank=True)
-    caption = models.TextField(blank=True) 
-    image_likes = models.ManyToManyField(user_model.User, related_name="post_image_likes")
+    caption = models.TextField(blank=True) # blank=False로 할 경우 무조건 받아야함
+    image_likes = models.ManyToManyField(
+        user_model.User,
+        blank=True, 
+        related_name="post_image_likes")
+
+    def __str__(self):
+        return f"{self.author} : {self.caption}"
 
 class Comments(TimeStamedModel):
     author = models.ForeignKey(
@@ -34,3 +40,5 @@ class Comments(TimeStamedModel):
     )
     contents = models.TextField(blank=True)
 
+    def __str__(self):
+        return f"{self.author} : {self.contents}"
