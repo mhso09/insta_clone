@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 
 from .forms import CreatePostForm
 from users.models import User as user_model
-from . import models
+from . import models, serializers
 # Create your views here.
 
 def index(request):
@@ -12,10 +12,13 @@ def index(request):
             user = get_object_or_404(user_model, pk=request.user.id)
             following = user.following.all()
             posts = models.Post.objects.filter(
-                Q(author__in=following) | Q(author=user)
+                Q(author__in=following) | Q(author=user) #following된 유저 포스트를 가져온다.
             )
 
-            return render(request, 'posts/index.html')
+            serializer = serializers.PostSerializer(posts, many=True)
+            print(serializer.data)
+
+            return render(request, 'posts/main.html', {'posts': serializer.data})
 
 def post_create(request):
     if request.method == 'GET':
