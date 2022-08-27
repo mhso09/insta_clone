@@ -6,7 +6,6 @@ from .forms import CreatePostForm, CommentForm
 from users.models import User as user_model
 from . import models, serializers
 # Create your views here.
-import random
 
 def index(request):
     if request.method == 'GET':
@@ -73,4 +72,26 @@ def comment_create(request, post_id):
             return redirect(reverse('posts:index') + "#comment-" + str(comment.id))
 
         else:
-            return render(request, 'posts/main.html')
+            return render(request, "{% url 'users:login' %}")
+
+def comment_delete(request, comment_id):
+    if request.user.is_authenticated:
+        comment = get_object_or_404(models.Comments, pk=comment_id)
+        if request.user == comment.author:
+            comment.delete()
+
+        return redirect(reverse('posts:index'))
+
+    else :
+        return render(request, 'users/main.html')
+
+def post_delete(request, post_id):
+    if request.user.is_authenticated:
+        post = get_object_or_404(models.Post, pk=post_id)
+        if request.user == post.author:
+            post.delete()
+        
+        return redirect(reverse('posts:index'))
+    
+    else :
+        return render(request, 'users/main.html')
