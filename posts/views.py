@@ -5,6 +5,7 @@ from .forms import CreatePostForm
 from users.models import User as user_model
 from . import models, serializers
 # Create your views here.
+import random
 
 def index(request):
     if request.method == 'GET':
@@ -16,7 +17,7 @@ def index(request):
             )
 
             serializer = serializers.PostSerializer(posts, many=True)
-            print(serializer.data)
+            # print(serializer.data)
 
             return render(request, 'posts/main.html', {'posts': serializer.data})
 
@@ -50,3 +51,5 @@ def post_create(request):
 
         else :
             return render (request, 'index.html')
+
+

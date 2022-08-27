@@ -1,17 +1,10 @@
+# pip install djangorestframework 
+
+from email.mime import audio
 from rest_framework import serializers
 
 from users.models import User as user_model
 from . import models
-
-
-class CommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Comments
-        fields = (
-            'id',
-            'contents',
-        )
-
 
 class FeedAuthorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,9 +16,22 @@ class FeedAuthorSerializer(serializers.ModelSerializer):
         )
 
 
+class CommentSerializer(serializers.ModelSerializer):
+    author = FeedAuthorSerializer()
+
+    class Meta:
+        model = models.Comments
+        fields = (
+            'id',
+            'author',
+            'contents',
+        )
+
+
 class PostSerializer(serializers.ModelSerializer):
     comment_post = CommentSerializer(many=True)
     author = FeedAuthorSerializer()
+
     class Meta:
         model = models.Post # 포스트에서 필드들을 추출
         fields = (
