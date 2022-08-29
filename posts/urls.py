@@ -15,6 +15,7 @@ urlpatterns = [
     path('<int:post_id>/post_delete/', views.post_delete, name='post_delete'),
 
     # /posts/1/post_update/
+    path('<int:post_id>/post_update/', views.post_update, name='post_update'),
 
 # 댓글 기능
 

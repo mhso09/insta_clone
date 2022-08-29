@@ -11,6 +11,17 @@ class CreatePostForm(forms.ModelForm):
             "image" : "사진",
         }
 
+
+class UpdatePostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ["caption"]
+
+        labels = {
+            "caption": "내용"
+        }
+
+
 class CommentForm(forms.ModelForm):
     contents = forms.CharField(widget=forms.Textarea, label="")
     class Meta:

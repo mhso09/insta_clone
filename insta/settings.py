@@ -134,3 +134,6 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
+# 로그아웃 후 이동할 URL
+LOGOUT_REDIRECT_URL = '/'
