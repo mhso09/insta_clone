@@ -26,6 +26,7 @@ def index(request):
                 'posts/main.html', 
                 {'posts': serializer.data, 'comment_form':comment_form})
 
+# 포스트 작성 기능
 def post_create(request):
     if request.method == 'GET':
         form = CreatePostForm()
@@ -57,7 +58,7 @@ def post_create(request):
         else :
             return render (request, 'index.html')
 
-
+# 댓글 작성 기능
 def comment_create(request, post_id):
     if request.user.is_authenticated:
         post = get_object_or_404(models.Post, pk=post_id)
@@ -74,6 +75,7 @@ def comment_create(request, post_id):
         else:
             return render(request, "{% url 'users:login' %}")
 
+# 댓글 삭제 기능
 def comment_delete(request, comment_id):
     if request.user.is_authenticated:
         comment = get_object_or_404(models.Comments, pk=comment_id)
@@ -85,6 +87,7 @@ def comment_delete(request, comment_id):
     else :
         return render(request, 'users/main.html')
 
+# 포스트 삭제 기능
 def post_delete(request, post_id):
     if request.user.is_authenticated:
         post = get_object_or_404(models.Post, pk=post_id)
