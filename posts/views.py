@@ -53,10 +53,10 @@ def post_create(request):
             else :
                 print(form.errors)
 
-            return render (request, 'posts/main.html')
+            return redirect(reverse('posts:index'))
 
         else :
-            return render (request, 'index.html')
+            return render(request, "index.html")
 
 # 댓글 작성 기능
 def comment_create(request, post_id):
@@ -70,7 +70,7 @@ def comment_create(request, post_id):
             comment.posts = post
             comment.save()
 
-            return redirect(reverse('posts:index') + "#comment-" + str(comment.id))
+            return redirect(reverse("posts:main") + "#comment-" + str(comment.id))
 
         else:
             return render(request, "{% url 'users:login' %}")

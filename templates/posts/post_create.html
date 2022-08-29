@@ -6,7 +6,7 @@
         create page
     </div>
     <div class="form">
-        <form action="{% url 'posts:post_create'%}"
+        <form action="{% url 'posts:post_create' %}"
                 method="post"
                 enctype="multipart/form-data">
             {% csrf_token %}
