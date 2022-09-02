@@ -32,11 +32,16 @@
         
         <!-- image -->
         <img class="post-image" src="{{ post.image }}">
-
-        <!-- image-button -->
-        <i class="fa fa-heart-o fa-2x"></i>
-        <i class="fa fa-heart fa-2x"></i>
-
+        
+        <button id="like-button-{{ post.id }}" onclick="handleLikeClick(this.id)">
+        {% if user.id in post.image_likes %}
+            <!-- image-button -->
+            <i class="fa fa-heart fa-2x"></i>   
+        {% else %}
+            <i class="fa fa-heart-o fa-2x"></i>
+        {% endif %}
+        </button>
+    
         <div class="desc-box">
             <!-- image-description -->
             <div class="image-desc">

@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.contrib import messages
 from datetime import datetime
+from django.core.paginator import Paginator
 
 from .forms import CreatePostForm, CommentForm, UpdatePostForm
 from users.models import User as user_model
@@ -11,6 +12,7 @@ from . import models, serializers
 
 def index(request):
     if request.method == 'GET':
+
         if request.user.is_authenticated:
             comment_form = CommentForm()
 
@@ -25,8 +27,7 @@ def index(request):
 
             return render(
                 request, 
-                'posts/main.html', 
-                {'posts': serializer.data, 'comment_form':comment_form})
+                'posts/main.html', {'posts': serializer.data, 'comment_form': comment_form})
 
 # 포스트 작성 기능
 def post_create(request):
@@ -72,7 +73,7 @@ def comment_create(request, post_id):
             comment.posts = post
             comment.save()
 
-            return redirect(reverse("posts:main") + "#comment-" + str(comment.id))
+            return redirect(reverse("posts:index") + "#comment-" + str(comment.id))
 
         else:
             return render(request, "{% url 'users:login' %}")
@@ -104,18 +105,6 @@ def post_delete(request, post_id):
 # 포스트 수정 기능
 
 def post_update(request, post_id):
-    # post = get_object_or_404(models.Post, pk=post_id)
-    # if request.method == 'POST':
-    #     form = CreatePostForm(request.POST, instance=post)
-    #     if form.is_valid():
-    #         post = form.save(commit=False)
-    #         post.updated_at = datetime.now()
-    #         post.save()
-    #         return redirect(reverse("posts:index", post_id=post.id))
-    # else:
-    #     form = CreatePostForm(instance=post)
-    # context = {"form" : form}
-    # return render(request, "posts/post_update.html", context)
 
     if request.user.is_authenticated:
         post = get_object_or_404(models.Post, pk=post_id)

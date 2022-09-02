@@ -18,9 +18,9 @@ class Post(TimeStamedModel):
     image = models.ImageField(blank=True)
     caption = models.TextField(blank=True) # blank=False로 할 경우 무조건 받아야함
     image_likes = models.ManyToManyField(
-        user_model.User,
-        blank=True, 
-        related_name="post_image_likes")
+                    user_model.User,
+                    blank=True, 
+                    related_name="post_image_likes")
 
     def __str__(self):
         return f"{self.author} : {self.caption}"
@@ -33,11 +33,11 @@ class Comments(TimeStamedModel):
             related_name="comment_author"          
         )
     posts = models.ForeignKey(
-        Post,
-        null=True,
-        on_delete=models.CASCADE,
-        related_name="comment_post"
-    )
+            Post,
+            null=True,
+            on_delete=models.CASCADE,
+            related_name="comment_post"
+        )
     contents = models.TextField(blank=True)
 
     def __str__(self):
