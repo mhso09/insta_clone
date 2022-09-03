@@ -17,6 +17,9 @@ urlpatterns = [
     # /posts/1/post_update/
     path('<int:post_id>/post_update/', views.post_update, name='post_update'),
 
+    #/posts/1/post_like/
+    path('<int:post_id>/post_like/', views.post_like, name='post_like'),
+
 # 댓글 기능
 
     # /posts/1/comment_create/

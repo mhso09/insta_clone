@@ -28,6 +28,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# SECURITY
+SESSION_COOKIE_HTTPONLY = True
+
+CSRF_TOKEN_HTTPONLY = False # 이 코드가 없으면 자동으로 Flase 'csrf token 코드를 추출할 때 True면 추출불가'
+
+SECURE_BROWSER_XSS_FILTER = False
+
+X_FRAME_OPTIONS = "DENY"
 
 # Application definition
 

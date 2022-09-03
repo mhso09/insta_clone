@@ -22,10 +22,11 @@ const handleLikeClick = (buttonId) => {
     likeIcon.classList.replace("fa-heart-o", "fa-heart");
     
     const csrftoken = getCookie('csrftoken');
+    console.log(csrftoken);
 
     
     const postId = buttonId.split("-").pop();
-    const url = "/posts/" + postId + "/post_like/"
+    const url = "/posts/" + postId + "/post_like"
     // 서버에서 좋아요 api를 호출
     fetch(url, {
         method : "POST",
@@ -36,14 +37,8 @@ const handleLikeClick = (buttonId) => {
     })
     .then(response => response.json())
 
+    .then(data => console.log(data));
+
+
     // 결과를 받고 html 좋아요 표시를 변경
-    .then(data =>{
-        if (data.result === "like") {
-            // 좋아요 세팅 흰색 -> 검은색
-            likeIcon.classList.replace("fa-heart-o", "fa-heart");
-        } else {
-            // 좋아요 취소 검은색 -> 흰색
-            likeIcon.classList.replace("fa-heart", "fa-heart-o");
-        }
-    });
 }
