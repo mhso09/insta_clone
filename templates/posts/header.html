@@ -7,7 +7,9 @@
             </a>
         </div>
         <div class="search">
-            <input type="text" placeholder="search">
+            <form action="{% url 'posts:post_search' %}" method="GET">
+                <input type="text" name="q" placeholder="search">
+            </form>
         </div>
         <div class="header-right">
             <div>

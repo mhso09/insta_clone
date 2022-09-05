@@ -155,3 +155,27 @@ def post_like(request, post_id):
             return JsonResponse(status=200, data=response_body) # http 상태표 200
     else :
         return JsonResponse(status=403, data=response_body) # http 상태표 403
+
+def search(request):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            searchKeyword = request.GET.get("q","")
+            comment_form = CommentForm()
+
+            user = get_object_or_404(user_model, pk=request.user.id)
+            following = user.following.all()
+            posts = models.Post.objects.filter(
+                # following된 유저 포스트를 가져온다.
+                (Q(author__in=following) | Q(author=user)) & Q(caption__contains=searchKeyword)
+            ).order_by('-create_at')
+             # .order_by('-created_at') -> 작성일시 순으로 정렬 "-"를 써줌으로 내림차순
+
+            serializer = serializers.PostSerializer(posts, many=True)
+            # print(serializer.data)
+
+            return render(
+                request,
+                'posts/main.html', {'posts': serializer.data, 'comment_form': comment_form})
+
+    else:
+        return render(request, 'users/main.html')
