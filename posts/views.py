@@ -63,35 +63,6 @@ def post_create(request):
         else :
             return render(request, "index.html")
 
-# 댓글 작성 기능
-def comment_create(request, post_id):
-    if request.user.is_authenticated:
-        post = get_object_or_404(models.Post, pk=post_id)
-
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.author = request.user
-            comment.posts = post
-            comment.save()
-
-            return redirect(reverse("posts:index") + "#comment-" + str(comment.id))
-
-        else:
-            return render(request, "{% url 'users:login' %}")
-
-# 댓글 삭제 기능
-def comment_delete(request, comment_id):
-    if request.user.is_authenticated:
-        comment = get_object_or_404(models.Comments, pk=comment_id)
-        if request.user == comment.author:
-            comment.delete()
-
-        return redirect(reverse('posts:index'))
-
-    else :
-        return render(request, 'users/main.html')
-
 # 포스트 삭제 기능
 def post_delete(request, post_id):
     if request.user.is_authenticated:
@@ -156,6 +127,7 @@ def post_like(request, post_id):
     else :
         return JsonResponse(status=403, data=response_body) # http 상태표 403
 
+# 포스트 찾기 기능
 def search(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
@@ -179,3 +151,54 @@ def search(request):
 
     else:
         return render(request, 'users/main.html')
+
+# 댓글 작성 기능
+def comment_create(request, post_id):
+    if request.user.is_authenticated:
+        post = get_object_or_404(models.Post, pk=post_id)
+
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.posts = post
+            comment.save()
+
+            return redirect(reverse("posts:index") + "#comment-" + str(comment.id))
+
+        else:
+            return render(request, "{% url 'users:login' %}")
+
+# 댓글 삭제 기능
+def comment_delete(request, comment_id):
+    if request.user.is_authenticated:
+        comment = get_object_or_404(models.Comments, pk=comment_id)
+        if request.user == comment.author:
+            comment.delete()
+
+        return redirect(reverse('posts:index'))
+
+    else:
+        return render(request, 'users/main.html')
+
+# 댓글 수정 기능
+def comment_update(request, comment_id):
+    if request.user.is_authenticated:
+        comment = get_object_or_404(models.Comments, pk=comment_id)
+        if request.user != comment.author:
+            messages.error('수정권한이 없습니다.')
+            return redirect(reverse('post:index'))
+
+        if request.method == 'POST':
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                comment.contents = form.cleaned_data['contents']
+                comment.save()
+
+            return redirect(reverse('posts:index'))
+        else :
+            form = CommentForm(instance=comment)
+        context = {'form': form, 'comment': comment}
+        return render(request, 'posts/comment_update.html', context)
+    else:
+        return render(request, "posts/main.html")

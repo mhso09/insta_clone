@@ -27,3 +27,7 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comments
         fields = ["contents"]
+        
+        labels = {
+            "contents":"내용"
+        }

@@ -1,0 +1,17 @@
+{% extends 'posts/base.html' %}
+{% block content %}
+
+<div class="comment-create">
+    <div>
+        update page
+    </div>
+    <div class="form">
+        <form action="{% url 'posts:comment_update' comment.id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Update">
+        </form>
+    </div>
+</div>
+
+{% endblock %}
